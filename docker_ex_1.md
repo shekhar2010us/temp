@@ -132,7 +132,7 @@ Create the **Dockerfile** with the following content:
 Now that you have your `Dockerfile`, you can build your image. The `docker build` command does the heavy-lifting of creating a docker image from a `Dockerfile`.
 
 ```docker
-docker build -t myfirstapp:1.0 .
+sudo docker build -t myfirstapp:1.0 .
 ```
 
 After successfully building the image, 
@@ -146,11 +146,11 @@ sudo docker images
 
 
 ```bash
-docker run -p 8888:5000 --name myapp1 myfirstapp:1.0
+sudo docker run -p 8888:5000 --name myapp1 myfirstapp:1.0
 ```
 
 
-Head over to `http://localhost:8888` and your app should be live.
+Head over to `http://<aws_public_ip>:8888` and your app should be live.
 
 
 Hit the Refresh button in the web browser to see a few more cat images.
