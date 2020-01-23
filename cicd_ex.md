@@ -27,7 +27,7 @@ This will take you to the home page of Azure DevOps.
 
 
 
-### 3. Create a Project
+### 3. Create a Azure DevOps Project
 
 By providing the following attributes
 
@@ -78,7 +78,7 @@ The Build Definition Name property will be set to ```Service Reservations {YourN
 
 ### 7. Configure the Build Definition
 
-#### Enable Code coverage
+#### 7a. Enable Code coverage
 
 On the **Task** tab, click on **Test Assemblies**. Scroll down until you see the “**Code coverage enabled**” option. Check the corresponding checkbox.
 <br>Click the dropdown next to Save and Queue and Select **Save** to save the Build Definition.
@@ -87,7 +87,7 @@ Note:- **DO NOT ```Save and Queue```**, the build will fail because you do not h
 
 <kbd><img src="images/code_coverage.png" alt="drawing" width="500"/></kbd>
 
-#### Enable CI Build Trigger
+#### 7b. Enable CI Build Trigger
 
 Navigate to the **Triggers** tab. Enable the **Continuous Integration Trigger** by flipping the switch under Enable this Trigger that says “Disabled” to the “Enabled” position.
 
@@ -95,7 +95,7 @@ Navigate to the **Triggers** tab. Enable the **Continuous Integration Trigger** 
 <kbd><img src="images/ci_trigger.png" alt="drawing" width="500"/></kbd>
 
 
-#### Enable Gated Checkin Trigger
+#### 7c. Enable Gated Checkin Trigger
 
 Navigate to the **Triggers** tab. Enable the **Gated check-in** by checking the box. Leave everything as-is
 
@@ -105,7 +105,7 @@ Navigate to the **Triggers** tab. Enable the **Gated check-in** by checking the 
 Note:- **DO NOT ```Save and Queue```**, the build will fail because you do not have any code yet
 
 
-#### Enable Bug Task on Build Failure
+#### 7d. Enable Bug Task on Build Failure
 
 Navigate to the **Options** tab. Enable **Create work item on failure**. Default option is to create a bug and assign to the requestor, leave as-is
 
@@ -117,5 +117,47 @@ Note:- **DO NOT ```Save and Queue```**, the build will fail because you do not h
 Finally click on the Pipelines again to see the list of build pipelines. Since the pipeline has not been run yet, it will show ```no runs yet```
 
 <kbd><img src="images/no_runs_yet.png" alt="drawing" width="500"/></kbd>
+<br><br>
+
+### 8. Create a new ASP.NET MVC project
+
+1. Go to ```Dashboards```, Under widget Visual Studio, choose the ```Open in Visual Studio``` 
+2. If the dialogue box pops up, select ```Visual Studio Version selector```. This will open Visual Studio 2017 in the Windows virtual machine.
+3. If it complains about credentials, login using the same credential that you used for azure devops. ```Username: DevOpsStudent@Outlook.com``` and ```Password: JustM300```
+4. Click on ```File``` -> ```New Project```
+5. Choose ```ASP.NET Web Application (.Net Framework)``` as the framework
+6. Name the project ```Service Reservation WebUI```
+7. In the Solution name field, ```remove WebUI``` so it reads as ```Service Reservation``` only, and click OK.
+8. When the next dialogue box pops up, choose the ```MVC``` option
+9. Check the ```Add unit tests``` checkbox
+10. Click on the ```Change Authentication``` button, and select the ```Individual user accounts``` option by clicking the radial button. 
+
+*** Make sure you have the **MVC** checkbox & **Add unit tests** checked, and click **OK**
 
 
+### 9. Run unit test locally
+
+1. **Go to Test** -> **run all test**
+2. Go to **Test explorer** -> all three unit test passed
+
+
+### 10. Register a user
+So it will create an entry in the database
+
+1. **Go to IIS Express (Google chrome)**. This will open the app in Google chrome
+2. ```Register``` a user -> provide ```email``` and ```password```
+3. Close the browser window to stop the debugging
+
+
+### 11. Configure Build Tools
+
+#### 11a. Review Database Setting in web.config
+1. In the ```Service Reservation WebUI``` project, check ```Web.config``` file.
+2. Look for a connection object similar to this ```connectionString="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\aspnet-Service Reservation WebUI-20200123020255.mdf```, and note down WebUI-20200123020255
+3. In the ```SQL Server Object Explorer```, navigate menus under ```localdb``` -> ```databases``` until you reach the same database mentioned in ```Web.config```
+4. Once you reach the correct database, right click and ```click new project```
+5. Name the database project as ```Service Reservations DB```
+6. browse and save it to the same directory where you have ```Service Reservation```.. It might be ```C:\Users\Administrator\source\repos\Service Reservation```
+7. 
+ 
+ 
