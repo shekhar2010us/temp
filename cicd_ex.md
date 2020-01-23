@@ -26,15 +26,18 @@ This will take you to the home page of Azure DevOps.
 <kbd><img src="images/home.png" alt="drawing" width="500"/></kbd>
 
 
+### 3. Fork git project
+Source project:- ```https://github.com/shekhar2010us/pipeline-java```
 
-### 3. Create a Azure DevOps Project
+
+### 4. Create a Azure DevOps Project
 
 By providing the following attributes
 
 ```
-Project name: ServiceReservation<your_name>
+Project name: AzureDevOps<your_name>
 * choose private *
-Version Control: Team Foundation Version Control
+Version Control: Git
 Work Item process: Agile
 ```
 
@@ -43,7 +46,7 @@ Work Item process: Agile
 
 ### 4. Add widget
 
-1.	Click on the <b>Dashboards</b> tab, <b>Add Widget</b>, search for <b>Visual Studio Shortcuts</b> and <b>Add</b> it to the dashboard. You may also add couple more widgets in the dashboard.
+1.	Click on the <b>Dashboards</b> tab, <b>Add Widget</b>, search for useful widgets like ```deployment status``` and ```build history```, and add them to dashboard
 2.	After adding all widgets, do <b>done editing</b>
 
 
@@ -61,103 +64,130 @@ Work Item process: Agile
 Go to the <b>Pipelines</b> tab.
 <br>Click the **Create Pipeline** button.
 
-#### Where is your code --> Choose **Team Foundation Version Control**
+#### Where is your code --> Choose **Github**
 
-<kbd><img src="images/tfvc1.png" alt="drawing" width="500"/></kbd>
+<kbd><img src="images/where_is_code.png" alt="drawing" width="500"/></kbd>
 
-#### Select a source  --> Choose **TFVC** again
+#### Authorize github
 
-<kbd><img src="images/tfvc2.png" alt="drawing" width="500"/></kbd>
+<kbd><img src="images/authorize_git.png" alt="drawing" width="500"/></kbd>
 
-#### Select a template --> Search or choose **ASP.NET** project and click Apply
+** Note:- Sometimes, it throws error while authorizing git from azure devops. In that case, open a new tab in the windows virtual machine and sign in your git account.
 
-<kbd><img src="images/asp.net.png" alt="drawing" width="500"/></kbd>
+In that case, the authorization will be easier.
 
-The Build Definition Name property will be set to ```Service Reservations {YourName}-ASP.NET-CI``` by default
-
-
-### 7. Configure the Build Definition
-
-#### 7a. Enable Code coverage
-
-On the **Task** tab, click on **Test Assemblies**. Scroll down until you see the “**Code coverage enabled**” option. Check the corresponding checkbox.
-<br>Click the dropdown next to Save and Queue and Select **Save** to save the Build Definition.
-Note:- **DO NOT ```Save and Queue```**, the build will fail because you do not have any code yet
+<kbd><img src="images/authorize2.png" alt="drawing" width="500"/></kbd>
 
 
-<kbd><img src="images/code_coverage.png" alt="drawing" width="500"/></kbd>
-
-#### 7b. Enable CI Build Trigger
-
-Navigate to the **Triggers** tab. Enable the **Continuous Integration Trigger** by flipping the switch under Enable this Trigger that says “Disabled” to the “Enabled” position.
+#### Select repository
+Choose the project ```pipeline-java```
+<kbd><img src="images/select_repository.png" alt="drawing" width="500"/></kbd>
 
 
-<kbd><img src="images/ci_trigger.png" alt="drawing" width="500"/></kbd>
+
+#### Authorize to create Azure Yaml
+```Approve and Install```
+<kbd><img src="images/azure_yaml.png" alt="drawing" width="500"/></kbd>
+
+To run Github projects in Azure DevOps, Azure use Yaml configuration which needs to reside in the codebase.
 
 
-#### 7c. Enable Gated Checkin Trigger
-
-Navigate to the **Triggers** tab. Enable the **Gated check-in** by checking the box. Leave everything as-is
-
-<kbd><img src="images/gated_checkin.png" alt="drawing" width="500"/></kbd>
-
-<br>Click the dropdown next to Save and Queue and Select **Save** to save the Build Definition.
-Note:- **DO NOT ```Save and Queue```**, the build will fail because you do not have any code yet
+#### Configure Pipeline
+```Choose Maven```
+<kbd><img src="images/maven.png" alt="drawing" width="500"/></kbd>
 
 
-#### 7d. Enable Bug Task on Build Failure
-
-Navigate to the **Options** tab. Enable **Create work item on failure**. Default option is to create a bug and assign to the requestor, leave as-is
-
-<kbd><img src="images/bug_task.png" alt="drawing" width="500"/></kbd>
-
-<br>Click the dropdown next to Save and Queue and Select **Save** to save the Build Definition.
-Note:- **DO NOT ```Save and Queue```**, the build will fail because you do not have any code yet
-
-Finally click on the Pipelines again to see the list of build pipelines. Since the pipeline has not been run yet, it will show ```no runs yet```
-
-<kbd><img src="images/no_runs_yet.png" alt="drawing" width="500"/></kbd>
-<br><br>
-
-### 8. Create a new ASP.NET MVC project
-
-1. Go to ```Dashboards```, Under widget Visual Studio, choose the ```Open in Visual Studio``` 
-2. If the dialogue box pops up, select ```Visual Studio Version selector```. This will open Visual Studio 2017 in the Windows virtual machine.
-3. If it complains about credentials, login using the same credential that you used for azure devops. ```Username: DevOpsStudent@Outlook.com``` and ```Password: JustM300```
-4. Click on ```File``` -> ```New Project```
-5. Choose ```ASP.NET Web Application (.Net Framework)``` as the framework
-6. Name the project ```Service Reservation WebUI```
-7. In the Solution name field, ```remove WebUI``` so it reads as ```Service Reservation``` only, and click OK.
-8. When the next dialogue box pops up, choose the ```MVC``` option
-9. Check the ```Add unit tests``` checkbox
-10. Click on the ```Change Authentication``` button, and select the ```Individual user accounts``` option by clicking the radial button. 
-
-*** Make sure you have the **MVC** checkbox & **Add unit tests** checked, and click **OK**
+#### Review your Pipeline Yaml
+```Save``` -- Just save, do not **Save & Run** yet
+<kbd><img src="images/review_pipeline.png" alt="drawing" width="500"/></kbd>
 
 
-### 9. Run unit test locally
 
-1. **Go to Test** -> **run all test**
-2. Go to **Test explorer** -> all three unit test passed
+### 7. Check and Run the Build Manually
+```Run the Pipeline```
+<kbd><img src="images/run_pipeline.png" alt="drawing" width="500"/></kbd>
 
+<kbd><img src="images/monitor_pipeline.png" alt="drawing" width="500"/></kbd>
 
-### 10. Register a user
-So it will create an entry in the database
-
-1. **Go to IIS Express (Google chrome)**. This will open the app in Google chrome
-2. ```Register``` a user -> provide ```email``` and ```password```
-3. Close the browser window to stop the debugging
+Wait until the job is finished and check logs
 
 
-### 11. Configure Build Tools
+### 8. Change the code in git
 
-#### 11a. Review Database Setting in web.config
-1. In the ```Service Reservation WebUI``` project, check ```Web.config``` file.
-2. Look for a connection object similar to this ```connectionString="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\aspnet-Service Reservation WebUI-20200123020255.mdf```, and note down WebUI-20200123020255
-3. In the ```SQL Server Object Explorer```, navigate menus under ```localdb``` -> ```databases``` until you reach the same database mentioned in ```Web.config```
-4. Once you reach the correct database, right click and ```click new project```
-5. Name the database project as ```Service Reservations DB```
-6. browse and save it to the same directory where you have ```Service Reservation```.. It might be ```C:\Users\Administrator\source\repos\Service Reservation```
-7. 
- 
- 
+If you change anything in the codebase and check-in your code, a build will be automatically triggered
+
+<kbd><img src="images/auto.png" alt="drawing" width="500"/></kbd>
+
+
+### 9. Define Release Pipeline
+#### 9a.
+```Pipelines --> Release --> New Pipeline```
+
+#### 9b. 
+Apply ```Azure App Service Deployment```
+
+<kbd><img src="images/release1.png" alt="drawing" width="500"/></kbd>
+
+#### 9c.
+Click on ```Stage 1```
+<br>Authorize azure.com
+
+<kbd><img src="images/release2.png" alt="drawing" width="500"/></kbd>
+
+```
+# use these credential
+Username: DevOpsStudent@Outlook.com
+Password: JustM300
+```
+
+Other parameters in the form
+
+```
+App Type: Web App on Linux 
+App Service Name: srsa
+```
+
+and
+```save```
+
+<kbd><img src="images/release3.png" alt="drawing" width="500"/></kbd>
+
+
+#### 9d. Setup the artifact
+click on pipeline again and ```Add an artifact```
+
+<kbd><img src="images/artifact1.png" alt="drawing" width="500"/></kbd>
+
+<kbd><img src="images/artifact2.png" alt="drawing" width="500"/></kbd>
+
+
+#### 9e. Turn on Continuous Deployment Trigger
+
+<kbd><img src="images/cd trigger.png" alt="drawing" width="500"/></kbd>
+
+and ```save```
+
+
+#### 9f. Create Release
+Choose all stages you want in the release. In this case, we only have stage 1
+
+<kbd><img src="images/create_release.png" alt="drawing" width="500"/></kbd>
+
+```create```
+
+
+#### 9g. Manual Deploy
+Pipelines --> Releases --> Release-1
+```deploy```
+<kbd><img src="images/manual_deploy.png" alt="drawing" width="500"/></kbd>
+
+
+```Check stage logs```
+
+
+
+### 9. CICD
+
+Now if you change any code in git, this will trigger auto CI and auto CD
+
+TEST!!!!
